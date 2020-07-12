@@ -18,6 +18,7 @@ jobs:
       - run:
           name: Backend Build
           command: |
+            ls
             cd backend
             npm run build
             
