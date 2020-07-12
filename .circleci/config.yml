@@ -27,7 +27,7 @@ jobs:
           paths: 
             - backend/node_modules
   backend-test: 
-     docker: 
+    docker: 
       - image: circleci/node:13.8.0
     steps: 
       - checkout
@@ -66,7 +66,7 @@ jobs:
           paths: 
             - frontend/node_modules
   frontend-test: 
-     docker: 
+    docker: 
       - image: circleci/node:13.8.0
     steps: 
       - checkout
