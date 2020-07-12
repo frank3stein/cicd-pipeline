@@ -49,7 +49,17 @@ jobs:
           name: Backend Tests failed
           command: |
             echo "Backend tests have failed, placeholder for later"
-          when: on_fail   
+          when: on_fail
+  backend-npmaudit: 
+    docker: 
+      - image: circleci/node:13.8.0
+    steps: 
+      - checkout
+      - run: 
+          name: Audit npm packages
+          command: |
+            cd backend
+            npm audit --audit-level=critical   
             
   frontend-build: 
     docker: 
@@ -89,13 +99,27 @@ jobs:
           name: frontend Tests failed
           command: |
             echo "frontend tests have failed, placeholder for later"
-          when: on_fail  
+          when: on_fail
+  frontend-npmaudit: 
+    docker: 
+      - image: circleci/node:13.8.0
+    steps: 
+      - checkout
+      - run: 
+          name: Audit npm packages
+          command: |
+            cd frontend
+            npm audit --audit-level=critical   
 workflows:
   default:
     jobs:
       # - hello-world
-      - backend-build
-      - frontend-build
+      - frontend-npmaudit
+      - backend-npmaudit
+      - backend-build:
+          requires: backend-npmaudit
+      - frontend-build:
+          requires: frontend-npmaudit
       - backend-test:
           requires: 
             - backend-build
