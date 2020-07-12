@@ -21,10 +21,23 @@ jobs:
             ls
             cd backend
             npm install
-            npm run build   
+            npm run build
+      - save_cache: 
+          key: backend-{{ checksum "./backend/package-lock.json" }}
+          paths: 
+            - backend/node_modules
+  backend-test: 
+     docker: 
+      - image: circleci/node:13.8.0
+    steps: 
+      - checkout
+      - restore_cache: 
+          keys: backend-{{ checksum "./backend/package-lock.json" }}  
       - run:
           name: Run Backend tests with JUnit as reporter
-          command: npm t -- --ci --reporters=default --reporters=jest-junit
+          command: |
+            cd backend
+            npm t -- --ci --reporters=default --reporters=jest-junit
           environment:
             JEST_JUNIT_OUTPUT_DIR: ./reports/junit/
       - store_test_results:
@@ -35,8 +48,7 @@ jobs:
           name: Backend Tests failed
           command: |
             echo "Backend tests have failed, placeholder for later"
-          when: on_fail
-
+          when: on_fail   
             
   frontend-build: 
     docker: 
@@ -49,9 +61,22 @@ jobs:
             cd frontend
             npm install
             npm run build
+      - save_cache: 
+          key: frontend-{{ checksum "./frontend/package-lock.json" }}
+          paths: 
+            - frontend/node_modules
+  frontend-test: 
+     docker: 
+      - image: circleci/node:13.8.0
+    steps: 
+      - checkout
+      - restore_cache: 
+          keys: frontend-{{ checksum "./frontend/package-lock.json" }}  
       - run:
-          name: Run Frontend tests with JUnit as reporter
-          command: npm t -- --ci --reporters=default --reporters=jest-junit
+          name: Run frontend tests with JUnit as reporter
+          command: |
+            cd frontend
+            npm t -- --ci --reporters=default --reporters=jest-junit
           environment:
             JEST_JUNIT_OUTPUT_DIR: ./reports/junit/
       - store_test_results:
@@ -59,10 +84,10 @@ jobs:
       - store_artifacts:
           path: ./reports/junit
       - run:
-          name: Frontend Tests failed
+          name: frontend Tests failed
           command: |
-            echo "Frontend tests have failed, placeholder for later"
-          when: on_fail
+            echo "frontend tests have failed, placeholder for later"
+          when: on_fail  
 workflows:
   default:
     jobs:
