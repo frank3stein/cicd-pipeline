@@ -20,6 +20,7 @@ jobs:
           command: |
             ls
             cd backend
+            npm install
             npm run build
             
   frontend-build: 
@@ -31,6 +32,7 @@ jobs:
           name: Frontend Build
           command: |
             cd frontend
+            npm install
             npm run build
 
 workflows:
