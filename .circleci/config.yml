@@ -94,3 +94,5 @@ workflows:
       - hello-world
       - backend-build
       - frontend-build
+      - backend-test
+      - frontend-test
