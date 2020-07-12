@@ -94,9 +94,9 @@ workflows:
       - hello-world
       - backend-build
       - frontend-build
-      - backend-test
+      - backend-test:
           requires: 
             - backend-build
-      - frontend-test
+      - frontend-test:
           requires: 
             - frontend-build
