@@ -1,15 +1,15 @@
 version: 2.1
 
 jobs:
-  hello-world:
-    docker:
-      - image: amazon/aws-cli
-    steps:
-      - checkout
-      - run:
-          name: Say Hello
-          command: |
-            echo "Hello World"
+  # hello-world:
+  #   docker:
+  #     - image: amazon/aws-cli
+  #   steps:
+  #     - checkout
+  #     - run:
+  #         name: Say Hello
+  #         command: |
+  #           echo "Hello World"
   backend-build: 
     docker: 
       - image: circleci/node:13.8.0
@@ -20,23 +20,24 @@ jobs:
           command: |
             ls
             cd backend
-            npm install
+            npm ci
             npm run build
-      - save_cache: 
-          key: backend-{{ checksum "./backend/package-lock.json" }}
-          paths: 
-            - backend/node_modules
+      # - save_cache: 
+      #     key: backend-{{ checksum "package-lock.json" }}
+      #     paths: 
+      #       - backend/node_modules
   backend-test: 
     docker: 
       - image: circleci/node:13.8.0
     steps: 
       - checkout
-      - restore_cache: 
-          keys: backend-{{ checksum "./backend/package-lock.json" }}  
+      # - restore_cache: 
+      #     keys: backend-{{ checksum "/backend/package-lock.json" }}  
       - run:
           name: Run Backend tests with JUnit as reporter
           command: |
             cd backend
+            npm ci
             npm t -- --ci --reporters=default --reporters=jest-junit
           environment:
             JEST_JUNIT_OUTPUT_DIR: ./reports/junit/
@@ -59,23 +60,24 @@ jobs:
           name: Frontend Build
           command: |
             cd frontend
-            npm install
+            npm ci
             npm run build
-      - save_cache: 
-          key: frontend-{{ checksum "./frontend/package-lock.json" }}
-          paths: 
-            - frontend/node_modules
+      # - save_cache: 
+      #     key: frontend-{{ checksum "./frontend/package-lock.json" }}
+      #     paths: 
+      #       - frontend/node_modules
   frontend-test: 
     docker: 
       - image: circleci/node:13.8.0
     steps: 
       - checkout
-      - restore_cache: 
-          keys: frontend-{{ checksum "./frontend/package-lock.json" }}  
+      # - restore_cache: 
+      #     keys: frontend-{{ checksum "./frontend/package-lock.json" }}  
       - run:
           name: Run frontend tests with JUnit as reporter
           command: |
             cd frontend
+            npm ci
             npm t -- --ci --reporters=default --reporters=jest-junit
           environment:
             JEST_JUNIT_OUTPUT_DIR: ./reports/junit/
