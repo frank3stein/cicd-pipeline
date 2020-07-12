@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="79" failures="1" time="40.148">
+  <testsuite name="Employee Remover" errors="0" failures="1" skipped="0" timestamp="2020-07-12T13:45:46" time="4.856" tests="1">
+    <testcase classname="Employee Remover when a user activates an employee should activate the employee from the repository" name="Employee Remover when a user activates an employee should activate the employee from the repository" time="0.004">
+      <failure>Error: expect(jest.fn()).toBeCalledWith(...expected)
+
+Expected: 100
+Received: 101
+
+Number of calls: 1
+    at /home/emil/learning/udacity/cloud-devops/cicd-pipeline/backend/src/modules/domain/employees/commands/handlers/employee-activator.handler.spec.ts:35:43
+    at Generator.next (&lt;anonymous&gt;)
+    at fulfilled (/home/emil/learning/udacity/cloud-devops/cicd-pipeline/backend/src/modules/domain/employees/commands/handlers/employee-activator.handler.spec.ts:5:58)</failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Employee Controller" errors="0" failures="0" skipped="0" timestamp="2020-07-12T13:45:51" time="1.456" tests="14">
+    <testcase classname="Employee Controller When an employee is posted to the controller Should dispatch create employee command" name="Employee Controller When an employee is posted to the controller Should dispatch create employee command" time="0.001">
+    </testcase>
+    <testcase classname="Employee Controller when an employee name UPDATE is sent to the controller should dispatch change employee name command" name="Employee Controller when an employee name UPDATE is sent to the controller should dispatch change employee name command" time="0">
+    </testcase>
+    <testcase classname="Employee Controller when an employee address UPDATE is sent to the controller should dispatch update employee address command" name="Employee Controller when an employee address UPDATE is sent to the controller should dispatch update employee address command" time="0.001">
+    </testcase>
+    <testcase classname="Employee Controller when an employee display name UPDATE is sent to the controller should dispatch update employee display name command" name="Employee Controller when an employee display name UPDATE is sent to the controller should dispatch update employee display name command" time="0">
+    </testcase>
+    <testcase classname="Employee Controller when an employee tags UPDATE is sent to the controller should dispatch update tags employee command" name="Employee Controller when an employee tags UPDATE is sent to the controller should dispatch update tags employee command" time="0.001">
+    </testcase>
+    <testcase classname="Employee Controller when an employee phone number UPDATE is sent to the controller should dispatch update phone number employee command" name="Employee Controller when an employee phone number UPDATE is sent to the controller should dispatch update phone number employee command" time="0">
+    </testcase>
+    <testcase classname="Employee Controller when an employee personal emaill UPDATE is sent to the controller should dispatch update personal email employee command" name="Employee Controller when an employee personal emaill UPDATE is sent to the controller should dispatch update personal email employee command" time="0.001">
+    </testcase>
+    <testcase classname="Employee Controller when an employee company email UPDATE is sent to the controller should dispatch update employee company email command" name="Employee Controller when an employee company email UPDATE is sent to the controller should dispatch update employee company email command" time="0">
+    </testcase>
+    <testcase classname="Employee Controller when an employee salary UPDATE is sent to the controller should dispatch update employee salary command" name="Employee Controller when an employee salary UPDATE is sent to the controller should dispatch update employee salary command" time="0.001">
+    </testcase>
+    <testcase classname="Employee Controller when an employee salary type UPDATE is sent to the controller should dispatch update employee salary type command" name="Employee Controller when an employee salary type UPDATE is sent to the controller should dispatch update employee salary type command" time="0">
+    </testcase>
+    <testcase classname="Employee Controller when an employee effective date UPDATE is sent to the controller should dispatch update employee effective date command" name="Employee Controller when an employee effective date UPDATE is sent to the controller should dispatch update employee effective date command" time="0.001">
+    </testcase>
+    <testcase classname="Employee Controller when an employee UPDATE birthdate is sent to the controller should dispatch update employee birthdate command" name="Employee Controller when an employee UPDATE birthdate is sent to the controller should dispatch update employee birthdate command" time="0">
+    </testcase>
+    <testcase classname="Employee Controller when a UPDATE request is sent to the controller should disptach deactivateEmployee employee command" name="Employee Controller when a UPDATE request is sent to the controller should disptach deactivateEmployee employee command" time="0.001">
+    </testcase>
+    <testcase classname="Employee Controller when a UPDATE request is sent to the controller should disptach activateEmployee employee command" name="Employee Controller when a UPDATE request is sent to the controller should disptach activateEmployee employee command" time="0">
+    </testcase>
+  </testsuite>
+  <testsuite name="Order Controller" errors="0" failures="0" skipped="0" timestamp="2020-07-12T13:45:53" time="1.019" tests="1">
+    <testcase classname="Order Controller When order request goes in to the controller should call save order command" name="Order Controller When order request goes in to the controller should call save order command" time="0.007">
+    </testcase>
+  </testsuite>
+  <testsuite name="BaseRepository" errors="0" failures="0" skipped="0" timestamp="2020-07-12T13:45:54" time="0.586" tests="8">
+    <testcase classname="BaseRepository When creating an entity should save de entity in db" name="BaseRepository When creating an entity should save de entity in db" time="0.001">
+    </testcase>
+    <testcase classname="BaseRepository When creating an entity should dispatch events from entity" name="BaseRepository When creating an entity should dispatch events from entity" time="0">
+    </testcase>
+    <testcase classname="BaseRepository When getting an entity by id should return first by id" name="BaseRepository When getting an entity by id should return first by id" time="0.001">
+    </testcase>
+    <testcase classname="BaseRepository when adding a where clauses should add fields to the query result" name="BaseRepository when adding a where clauses should add fields to the query result" time="0">
+    </testcase>
+    <testcase classname="BaseRepository when adding a where clauses should return all where in a single object" name="BaseRepository when adding a where clauses should return all where in a single object" time="0.001">
+    </testcase>
+    <testcase classname="BaseRepository when adding a where clauses should return entity when doing a first" name="BaseRepository when adding a where clauses should return entity when doing a first" time="0">
+    </testcase>
+    <testcase classname="BaseRepository when adding a where clauses should call find when gettting query result" name="BaseRepository when adding a where clauses should call find when gettting query result" time="0.001">
+    </testcase>
+    <testcase classname="BaseRepository when adding a where clauses should return pagination when paginating" name="BaseRepository when adding a where clauses should return pagination when paginating" time="0">
+    </testcase>
+  </testsuite>
+  <testsuite name="Employee Creator" errors="0" failures="0" skipped="0" timestamp="2020-07-12T13:45:54" time="0.617" tests="1">
+    <testcase classname="Employee Creator when an user creates and employee should add an employee to the repo" name="Employee Creator when an user creates and employee should add an employee to the repo" time="0.004">
+    </testcase>
+  </testsuite>
+  <testsuite name="Order Creator" errors="0" failures="0" skipped="0" timestamp="2020-07-12T13:45:55" time="0.745" tests="1">
+    <testcase classname="Order Creator when an user creates an order should add order to the repo" name="Order Creator when an user creates an order should add order to the repo" time="0.002">
+    </testcase>
+  </testsuite>
+  <testsuite name="Status Controller" errors="0" failures="0" skipped="0" timestamp="2020-07-12T13:45:56" time="0.748" tests="1">
+    <testcase classname="Status Controller should return ok status" name="Status Controller should return ok status" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="Check if employee exists" errors="0" failures="0" skipped="0" timestamp="2020-07-12T13:45:56" time="0.646" tests="1">
+    <testcase classname="Check if employee exists when dispatching an update salary employee command should validate that the product exists in the db" name="Check if employee exists when dispatching an update salary employee command should validate that the product exists in the db" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="Check if employee exists" errors="0" failures="0" skipped="0" timestamp="2020-07-12T13:45:57" time="0.634" tests="1">
+    <testcase classname="Check if employee exists when dispatching an update personal email employee command should validate that the product exists in the db" name="Check if employee exists when dispatching an update personal email employee command should validate that the product exists in the db" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="Check if employee exists" errors="0" failures="0" skipped="0" timestamp="2020-07-12T13:45:58" time="0.605" tests="1">
+    <testcase classname="Check if employee exists when dispatching an update display name employee command should validate that the product exists in the db" name="Check if employee exists when dispatching an update display name employee command should validate that the product exists in the db" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="Employee Updater" errors="0" failures="0" skipped="0" timestamp="2020-07-12T13:45:58" time="0.665" tests="1">
+    <testcase classname="Employee Updater when an user updates an employee should get and employee and add it to the repository" name="Employee Updater when an user updates an employee should get and employee and add it to the repository" time="0.002">
+    </testcase>
+  </testsuite>
+  <testsuite name="Check if employee exists" errors="0" failures="0" skipped="0" timestamp="2020-07-12T13:45:59" time="0.607" tests="1">
+    <testcase classname="Check if employee exists when dispatching an update effective date employee command should validate that the product exists in the db" name="Check if employee exists when dispatching an update effective date employee command should validate that the product exists in the db" time="0.002">
+    </testcase>
+  </testsuite>
+  <testsuite name="Employee Company Email Updater" errors="0" failures="0" skipped="0" timestamp="2020-07-12T13:46:00" time="0.73" tests="1">
+    <testcase classname="Employee Company Email Updater when an user updates an employee company email should get and employee and add it to the repository" name="Employee Company Email Updater when an user updates an employee company email should get and employee and add it to the repository" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="Check if employee exists" errors="0" failures="0" skipped="0" timestamp="2020-07-12T13:46:00" time="0.656" tests="1">
+    <testcase classname="Check if employee exists when dispatching an update name employee command should validate that the product exists in the db" name="Check if employee exists when dispatching an update name employee command should validate that the product exists in the db" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="Employee Phone Number Updater" errors="0" failures="0" skipped="0" timestamp="2020-07-12T13:46:01" time="0.713" tests="1">
+    <testcase classname="Employee Phone Number Updater when an user updates an employee phone number should get and employee and add it to the repository" name="Employee Phone Number Updater when an user updates an employee phone number should get and employee and add it to the repository" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="Employee Birthdate Updater" errors="0" failures="0" skipped="0" timestamp="2020-07-12T13:46:02" time="0.639" tests="1">
+    <testcase classname="Employee Birthdate Updater when an user updates an employee birthdate should get and employee and add it to the repository" name="Employee Birthdate Updater when an user updates an employee birthdate should get and employee and add it to the repository" time="0.002">
+    </testcase>
+  </testsuite>
+  <testsuite name="Check if employee exists" errors="0" failures="0" skipped="0" timestamp="2020-07-12T13:46:02" time="0.762" tests="1">
+    <testcase classname="Check if employee exists when dispatching an update address employee command should validate that the product exists in the db" name="Check if employee exists when dispatching an update address employee command should validate that the product exists in the db" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="Check if employee exists" errors="0" failures="0" skipped="0" timestamp="2020-07-12T13:46:03" time="0.603" tests="1">
+    <testcase classname="Check if employee exists when dispatching an update employee command should validate that the product exists in the db" name="Check if employee exists when dispatching an update employee command should validate that the product exists in the db" time="0.004">
+    </testcase>
+  </testsuite>
+  <testsuite name="Check if employee exists" errors="0" failures="0" skipped="0" timestamp="2020-07-12T13:46:04" time="0.581" tests="1">
+    <testcase classname="Check if employee exists when dispatching an update salary type employee command should validate that the product exists in the db" name="Check if employee exists when dispatching an update salary type employee command should validate that the product exists in the db" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="Check if employee exists" errors="0" failures="0" skipped="0" timestamp="2020-07-12T13:46:04" time="0.639" tests="1">
+    <testcase classname="Check if employee exists when dispatching an update phone number employee command should validate that the product exists in the db" name="Check if employee exists when dispatching an update phone number employee command should validate that the product exists in the db" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="Check if employee exists" errors="0" failures="0" skipped="0" timestamp="2020-07-12T13:46:05" time="0.597" tests="1">
+    <testcase classname="Check if employee exists when dispatching an update company email employee command should validate that the product exists in the db" name="Check if employee exists when dispatching an update company email employee command should validate that the product exists in the db" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="Create Employee Validator" errors="0" failures="0" skipped="0" timestamp="2020-07-12T13:46:06" time="0.569" tests="1">
+    <testcase classname="Create Employee Validator When sending a complete save employee command should pass the validation if the command is correct" name="Create Employee Validator When sending a complete save employee command should pass the validation if the command is correct" time="0.01">
+    </testcase>
+  </testsuite>
+  <testsuite name="Check if employee exists" errors="0" failures="0" skipped="0" timestamp="2020-07-12T13:46:06" time="0.625" tests="1">
+    <testcase classname="Check if employee exists when dispatching an update employee command should validate that the product exists in the db" name="Check if employee exists when dispatching an update employee command should validate that the product exists in the db" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="Employee Salary Updater" errors="0" failures="0" skipped="0" timestamp="2020-07-12T13:46:07" time="0.577" tests="1">
+    <testcase classname="Employee Salary Updater when an user updates an employee salary should get and employee and add it to the repository" name="Employee Salary Updater when an user updates an employee salary should get and employee and add it to the repository" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="Employee Remover" errors="0" failures="0" skipped="0" timestamp="2020-07-12T13:46:07" time="0.586" tests="1">
+    <testcase classname="Employee Remover when a user removes an employee should remove the employee from the repository" name="Employee Remover when a user removes an employee should remove the employee from the repository" time="0">
+    </testcase>
+  </testsuite>
+  <testsuite name="Employee Effective Date Updater" errors="0" failures="0" skipped="0" timestamp="2020-07-12T13:46:08" time="0.577" tests="1">
+    <testcase classname="Employee Effective Date Updater when an user updates an employee effective date should get and employee and add it to the repository" name="Employee Effective Date Updater when an user updates an employee effective date should get and employee and add it to the repository" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="Check if employee exists" errors="0" failures="0" skipped="0" timestamp="2020-07-12T13:46:09" time="0.634" tests="1">
+    <testcase classname="Check if employee exists when dispatching an update tags employee command should validate that the product exists in the db" name="Check if employee exists when dispatching an update tags employee command should validate that the product exists in the db" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="Check if product exists" errors="0" failures="0" skipped="0" timestamp="2020-07-12T13:46:09" time="0.589" tests="1">
+    <testcase classname="Check if product exists when dispatching a create order program it should validate that a the product exist in the db" name="Check if product exists when dispatching a create order program it should validate that a the product exist in the db" time="0.002">
+    </testcase>
+  </testsuite>
+  <testsuite name="Employee Name Updater" errors="0" failures="0" skipped="0" timestamp="2020-07-12T13:46:10" time="0.592" tests="1">
+    <testcase classname="Employee Name Updater when an user updates an employee name should get and employee and add it to the repository" name="Employee Name Updater when an user updates an employee name should get and employee and add it to the repository" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="Employee Personal Email Updater" errors="0" failures="0" skipped="0" timestamp="2020-07-12T13:46:10" time="0.58" tests="1">
+    <testcase classname="Employee Personal Email Updater when an user updates an employee personal email should get and employee and add it to the repository" name="Employee Personal Email Updater when an user updates an employee personal email should get and employee and add it to the repository" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="Employee Salary Type Updater" errors="0" failures="0" skipped="0" timestamp="2020-07-12T13:46:11" time="0.575" tests="1">
+    <testcase classname="Employee Salary Type Updater when an user updates an employee salary type should get and employee and add it to the repository" name="Employee Salary Type Updater when an user updates an employee salary type should get and employee and add it to the repository" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="Employee Address Updater" errors="0" failures="0" skipped="0" timestamp="2020-07-12T13:46:12" time="0.588" tests="1">
+    <testcase classname="Employee Address Updater when an user updates an employee address should get and employee and add it to the repository" name="Employee Address Updater when an user updates an employee address should get and employee and add it to the repository" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="Employee Display Name Updater" errors="0" failures="0" skipped="0" timestamp="2020-07-12T13:46:12" time="0.601" tests="1">
+    <testcase classname="Employee Display Name Updater when an user updates an employee display name  should get and employee and add it to the repository" name="Employee Display Name Updater when an user updates an employee display name  should get and employee and add it to the repository" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="Employee Tags Updater" errors="0" failures="0" skipped="0" timestamp="2020-07-12T13:46:13" time="0.592" tests="1">
+    <testcase classname="Employee Tags Updater when an user updates an employee tags should get and employee and add it to the repository" name="Employee Tags Updater when an user updates an employee tags should get and employee and add it to the repository" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="Check if employee exists" errors="0" failures="0" skipped="0" timestamp="2020-07-12T13:46:14" time="0.585" tests="1">
+    <testcase classname="Check if employee exists when dispatching an update birthdate employee command should validate that the product exists in the db" name="Check if employee exists when dispatching an update birthdate employee command should validate that the product exists in the db" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="Update Employee Validator" errors="0" failures="0" skipped="0" timestamp="2020-07-12T13:46:14" time="0.571" tests="1">
+    <testcase classname="Update Employee Validator when sending an update phone number employee command should pass the validation if the command is correct" name="Update Employee Validator when sending an update phone number employee command should pass the validation if the command is correct" time="0.002">
+    </testcase>
+  </testsuite>
+  <testsuite name="Update Employee Validator" errors="0" failures="0" skipped="0" timestamp="2020-07-12T13:46:15" time="0.5" tests="1">
+    <testcase classname="Update Employee Validator when sending an update salary type employee command should pass the validation if the command is correct" name="Update Employee Validator when sending an update salary type employee command should pass the validation if the command is correct" time="0.002">
+    </testcase>
+  </testsuite>
+  <testsuite name="AggregateRoot" errors="0" failures="0" skipped="0" timestamp="2020-07-12T13:46:15" time="0.462" tests="6">
+    <testcase classname="AggregateRoot When applying an event should add the event to the raised events" name="AggregateRoot When applying an event should add the event to the raised events" time="0.001">
+    </testcase>
+    <testcase classname="AggregateRoot When applying an event should call event handler on entity by the event like `on{NameOfTheEvent}`" name="AggregateRoot When applying an event should call event handler on entity by the event like `on{NameOfTheEvent}`" time="0.001">
+    </testcase>
+    <testcase classname="AggregateRoot when loading events from history should update the new values from history " name="AggregateRoot when loading events from history should update the new values from history " time="0">
+    </testcase>
+    <testcase classname="AggregateRoot when loading events from history should not add the events to the raised events" name="AggregateRoot when loading events from history should not add the events to the raised events" time="0.001">
+    </testcase>
+    <testcase classname="AggregateRoot when publishing the events should get all raised events" name="AggregateRoot when publishing the events should get all raised events" time="0">
+    </testcase>
+    <testcase classname="AggregateRoot when publishing the events it should clean the event stream" name="AggregateRoot when publishing the events it should clean the event stream" time="0">
+    </testcase>
+  </testsuite>
+  <testsuite name="Update Employee Validator" errors="0" failures="0" skipped="0" timestamp="2020-07-12T13:46:16" time="0.492" tests="1">
+    <testcase classname="Update Employee Validator when sending an update employee command should pass the validation if the command is correct" name="Update Employee Validator when sending an update employee command should pass the validation if the command is correct" time="0.002">
+    </testcase>
+  </testsuite>
+  <testsuite name="Update Employee Validator" errors="0" failures="0" skipped="0" timestamp="2020-07-12T13:46:16" time="0.49" tests="1">
+    <testcase classname="Update Employee Validator when sending an update effective date employee command should pass the validation if the command is correct" name="Update Employee Validator when sending an update effective date employee command should pass the validation if the command is correct" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="Order" errors="0" failures="0" skipped="0" timestamp="2020-07-12T13:46:17" time="0.517" tests="2">
+    <testcase classname="Order When adding a product should add the product to the products collection" name="Order When adding a product should add the product to the products collection" time="0.001">
+    </testcase>
+    <testcase classname="Order When adding a product should apply ProductAddedToOrderEvent" name="Order When adding a product should apply ProductAddedToOrderEvent" time="0">
+    </testcase>
+  </testsuite>
+  <testsuite name="Update Employee Validator" errors="0" failures="0" skipped="0" timestamp="2020-07-12T13:46:17" time="0.601" tests="1">
+    <testcase classname="Update Employee Validator when sending an update display name employee command should pass the validation if the command is correct" name="Update Employee Validator when sending an update display name employee command should pass the validation if the command is correct" time="0.002">
+    </testcase>
+  </testsuite>
+  <testsuite name="Current User" errors="0" failures="0" skipped="0" timestamp="2020-07-12T13:46:18" time="0.633" tests="1">
+    <testcase classname="Current User When getting the logged user should return the user logged in the request" name="Current User When getting the logged user should return the user logged in the request" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="Create Order Validator" errors="0" failures="0" skipped="0" timestamp="2020-07-12T13:46:18" time="0.569" tests="2">
+    <testcase classname="Create Order Validator When sending a in complete save order command should return an error if the productId is null" name="Create Order Validator When sending a in complete save order command should return an error if the productId is null" time="0.004">
+    </testcase>
+    <testcase classname="Create Order Validator When sending a in complete save order command should pass the validation if the command is correct" name="Create Order Validator When sending a in complete save order command should pass the validation if the command is correct" time="0.002">
+    </testcase>
+  </testsuite>
+  <testsuite name="Update Employee Validator" errors="0" failures="0" skipped="0" timestamp="2020-07-12T13:46:19" time="0.591" tests="1">
+    <testcase classname="Update Employee Validator when sending an update salary employee command should pass the validation if the command is correct" name="Update Employee Validator when sending an update salary employee command should pass the validation if the command is correct" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="Composite Validator" errors="0" failures="0" skipped="0" timestamp="2020-07-12T13:46:20" time="0.539" tests="2">
+    <testcase classname="Composite Validator When validating with multiple validators should aggregate errors of the validators" name="Composite Validator When validating with multiple validators should aggregate errors of the validators" time="0.001">
+    </testcase>
+    <testcase classname="Composite Validator When validating with multiple validators should return no error if any result is error occur" name="Composite Validator When validating with multiple validators should return no error if any result is error occur" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="Update Employee Validator" errors="0" failures="0" skipped="0" timestamp="2020-07-12T13:46:20" time="0.568" tests="1">
+    <testcase classname="Update Employee Validator when sending an update birthdate employee command should pass the validation if the command is correct" name="Update Employee Validator when sending an update birthdate employee command should pass the validation if the command is correct" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="Update Employee Validator" errors="0" failures="0" skipped="0" timestamp="2020-07-12T13:46:21" time="0.567" tests="1">
+    <testcase classname="Update Employee Validator when sending an update personal email employee command should pass the validation if the command is correct" name="Update Employee Validator when sending an update personal email employee command should pass the validation if the command is correct" time="0.002">
+    </testcase>
+  </testsuite>
+  <testsuite name="Update Employee Validator" errors="0" failures="0" skipped="0" timestamp="2020-07-12T13:46:21" time="0.566" tests="1">
+    <testcase classname="Update Employee Validator when sending an update address employee command should pass the validation if the command is correct" name="Update Employee Validator when sending an update address employee command should pass the validation if the command is correct" time="0.002">
+    </testcase>
+  </testsuite>
+  <testsuite name="Update Employee Validator" errors="0" failures="0" skipped="0" timestamp="2020-07-12T13:46:22" time="0.573" tests="1">
+    <testcase classname="Update Employee Validator when sending an update company email employee command should pass the validation if the command is correct" name="Update Employee Validator when sending an update company email employee command should pass the validation if the command is correct" time="0.002">
+    </testcase>
+  </testsuite>
+  <testsuite name="Update Employee Validator" errors="0" failures="0" skipped="0" timestamp="2020-07-12T13:46:22" time="0.586" tests="1">
+    <testcase classname="Update Employee Validator when sending an update name mployee command should pass the validation if the command is correct" name="Update Employee Validator when sending an update name mployee command should pass the validation if the command is correct" time="0.001">
+    </testcase>
+  </testsuite>
+</testsuites>
