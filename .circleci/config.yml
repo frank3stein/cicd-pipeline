@@ -160,4 +160,5 @@ workflows:
       # - frontend-test:
       #     requires:
       #       - frontend-build
-      - create-infrastructure
+      - create_infrastructure
+      - configure_infrastructure
