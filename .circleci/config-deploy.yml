@@ -1,0 +1,18 @@
+version: 2.1
+
+jobs:
+  create_infrastructure:
+    docker:
+      - image: amazon/aws-cli
+    steps:
+      - checkout
+      - run:
+          name: Ensure backend infrastructure exist
+          command: |
+            aws cloudformation deploy \
+              --template-file backend.yml \
+              --stack-name udapeople
+workflows:
+  my_workflow:
+    jobs:
+      - create_infrastructure

@@ -10,10 +10,10 @@ jobs:
   #         name: Say Hello
   #         command: |
   #           echo "Hello World"
-  backend-build: 
-    docker: 
+  backend-build:
+    docker:
       - image: circleci/node:13.8.0
-    steps: 
+    steps:
       - checkout
       - run:
           name: Backend Build
@@ -22,17 +22,17 @@ jobs:
             cd backend
             npm ci
             npm run build
-      # - save_cache: 
+      # - save_cache:
       #     key: backend-{{ checksum "package-lock.json" }}
-      #     paths: 
+      #     paths:
       #       - backend/node_modules
-  backend-test: 
-    docker: 
+  backend-test:
+    docker:
       - image: circleci/node:13.8.0
-    steps: 
+    steps:
       - checkout
-      # - restore_cache: 
-      #     keys: backend-{{ checksum "/backend/package-lock.json" }}  
+      # - restore_cache:
+      #     keys: backend-{{ checksum "/backend/package-lock.json" }}
       - run:
           name: Run Backend tests with JUnit as reporter
           command: |
@@ -50,21 +50,21 @@ jobs:
           command: |
             echo "Backend tests have failed, placeholder for later"
           when: on_fail
-  backend-npmaudit: 
-    docker: 
+  backend-npmaudit:
+    docker:
       - image: circleci/node:13.8.0
-    steps: 
+    steps:
       - checkout
-      - run: 
+      - run:
           name: Audit npm packages
           command: |
             cd backend
-            npm audit --audit-level=critical   
-            
-  frontend-build: 
-    docker: 
+            npm audit --audit-level=critical
+
+  frontend-build:
+    docker:
       - image: circleci/node:13.8.0
-    steps: 
+    steps:
       - checkout
       - run:
           name: Frontend Build
@@ -72,17 +72,17 @@ jobs:
             cd frontend
             npm ci
             npm run build
-      # - save_cache: 
+      # - save_cache:
       #     key: frontend-{{ checksum "./frontend/package-lock.json" }}
-      #     paths: 
+      #     paths:
       #       - frontend/node_modules
-  frontend-test: 
-    docker: 
+  frontend-test:
+    docker:
       - image: circleci/node:13.8.0
-    steps: 
+    steps:
       - checkout
-      # - restore_cache: 
-      #     keys: frontend-{{ checksum "./frontend/package-lock.json" }}  
+      # - restore_cache:
+      #     keys: frontend-{{ checksum "./frontend/package-lock.json" }}
       - run:
           name: Run frontend tests with JUnit as reporter
           command: |
@@ -100,31 +100,64 @@ jobs:
           command: |
             echo "frontend tests have failed, placeholder for later"
           when: on_fail
-  frontend-npmaudit: 
-    docker: 
+  frontend-npmaudit:
+    docker:
       - image: circleci/node:13.8.0
-    steps: 
+    steps:
       - checkout
-      - run: 
+      - run:
           name: Audit npm packages
           command: |
             cd frontend
-            npm audit --audit-level=critical   
+            npm audit --audit-level=critical
+  create_infrastructure:
+    docker:
+      - image: amazon/aws-cli
+    steps:
+      - checkout
+      - run:
+          name: Ensure backend infrastructure exist
+          command: |
+            aws cloudformation deploy \
+              --template-file backend.yml \
+              --stack-name udapeople \
+              --parameter-overrides ID=udapeople
+            # aws ec2 describe-instances \
+            # \
+            #   --query 'Reservations[*].Instances[*].PublicIpAddress' \
+            #   --filters "Name=tag:Project,Values=backend-udapeople" \
+            #   --output text >> inventory
+  configure_infrastructure:
+    docker:
+      - image: python:3.7-alpine3.11
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints: ["af:49:bb:53:37:e7:0c:a4:1d:2b:c4:3f:5a:bc:5d:68"] # You can get this ID in the section where you registered the SSH Key
+      - run:
+          name: Install dependencies
+          command: |
+            apk add --update ansible # install the dependencies needed for your playbook
+      - run:
+          name: Configure server
+          command: |
+            ansible-playbook -i inventory.txt playbook.yml
 workflows:
   default:
     jobs:
       # - hello-world
-      - frontend-npmaudit
-      - backend-npmaudit
-      - backend-build:
-          requires: 
-            - backend-npmaudit
-      - frontend-build:
-          requires: 
-            - frontend-npmaudit
-      - backend-test:
-          requires: 
-            - backend-build
-      - frontend-test:
-          requires: 
-            - frontend-build
+      # - frontend-npmaudit
+      # - backend-npmaudit
+      # - backend-build:
+      #     requires:
+      #       - backend-npmaudit
+      # - frontend-build:
+      #     requires:
+      #       - frontend-npmaudit
+      # - backend-test:
+      #     requires:
+      #       - backend-build
+      # - frontend-test:
+      #     requires:
+      #       - frontend-build
+      - create-infrastructure

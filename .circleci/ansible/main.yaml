@@ -1,0 +1,7 @@
+  ---
+  - name: "deploy configure"
+    hosts: localhost
+    roles: 
+      - deploy
+      - configure-server
+      - configure-prometheus-node-exporter
