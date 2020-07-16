@@ -36,7 +36,7 @@ jobs:
       - run:
           name: Run Backend tests with JUnit as reporter
           command: |
-            mkdir reports/junit
+            mkdir -p reports/junit
             cd backend
             npm ci
             npm t -- --ci --reporters=default --reporters=jest-junit
@@ -70,7 +70,6 @@ jobs:
       - run:
           name: Frontend Build
           command: |
-            mkdir reports/junit
             cd frontend
             npm ci
             npm run build
@@ -88,6 +87,7 @@ jobs:
       - run:
           name: Run frontend tests with JUnit as reporter
           command: |
+            mkdir -p reports/junit
             cd frontend
             npm ci
             npm t -- --ci --reporters=default --reporters=jest-junit
