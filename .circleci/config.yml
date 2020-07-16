@@ -1,15 +1,15 @@
 version: 2.1
 
 jobs:
-  # hello-world:
-  #   docker:
-  #     - image: amazon/aws-cli
-  #   steps:
-  #     - checkout
-  #     - run:
-  #         name: Say Hello
-  #         command: |
-  #           echo "Hello World"
+  hello-world:
+    docker:
+      - image: amazon/aws-cli
+    steps:
+      - checkout
+      - run:
+          name: Say Hello
+          command: |
+            echo "Hello World ${CIRCLE_WORKFLOW_ID}"
   backend-build:
     docker:
       - image: circleci/node:13.8.0
@@ -36,6 +36,7 @@ jobs:
       - run:
           name: Run Backend tests with JUnit as reporter
           command: |
+            mkdir -p reports/junit
             cd backend
             npm ci
             npm t -- --ci --reporters=default --reporters=jest-junit
@@ -86,6 +87,7 @@ jobs:
       - run:
           name: Run frontend tests with JUnit as reporter
           command: |
+            mkdir -p reports/junit
             cd frontend
             npm ci
             npm t -- --ci --reporters=default --reporters=jest-junit
@@ -119,14 +121,14 @@ jobs:
           name: Ensure backend infrastructure exist
           command: |
             aws cloudformation deploy \
-              --template-file backend.yml \
+              --template-file ./files/backend.yml \
               --stack-name udapeople \
-              --parameter-overrides ID=udapeople
-            # aws ec2 describe-instances \
-            # \
-            #   --query 'Reservations[*].Instances[*].PublicIpAddress' \
-            #   --filters "Name=tag:Project,Values=backend-udapeople" \
-            #   --output text >> inventory
+              --parameter-overrides ID=${CIRCLE_WORKFLOW_ID}
+            aws ec2 describe-instances \
+            \
+              --query 'Reservations[*].Instances[*].PublicIpAddress' \
+              --filters "Name=tag:Project,Values=backend-${CIRCLE_WORKFLOW_ID}" \
+              --output text >> inventory.txt
   configure_infrastructure:
     docker:
       - image: python:3.7-alpine3.11
@@ -145,7 +147,7 @@ jobs:
 workflows:
   default:
     jobs:
-      # - hello-world
+      - hello-world
       # - frontend-npmaudit
       # - backend-npmaudit
       # - backend-build:
