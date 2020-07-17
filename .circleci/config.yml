@@ -138,10 +138,16 @@ jobs:
               --template-file .circleci/files/backend.yml \
               --stack-name udapeople \
               --parameter-overrides ID=${CIRCLE_WORKFLOW_ID}
-            aws ec2 describe-instances \
-              --query 'Reservations[*].Instances[*].PublicIpAddress' \
-              --filters "Name=tag:Name,Values=backend-${CIRCLE_WORKFLOW_ID}" \
-              --output text >> inventory.txt
+            \
+            # aws ec2 describe-instances --query 'Reservations[*].Instances[*].PublicIpAddress' --filters "Name=tag:Name,Values=backend-${CIRCLE_WORKFLOW_ID}" --output text >> inventory.txt
+            \
+            curl -H "Content-Type: text/plain" -H "token: a39cf579-b6da-4952-bf25-67a77c1188aa" --request PUT --data "$(aws ec2 describe-instances --query 'Reservations[*].Instances[*].PublicIpAddress' --filters "Name=tag:Name,Values=backend-${CIRCLE_WORKFLOW_ID}" --output text)" https://api.memstash.io/values/udapeople-backend
+
+            #curl -H "token: a39cf579-b6da-4952-bf25-67a77c1188aa" --request GET https://api.memstash.io/values/udapeople-backend
+      - run:
+          name: Install tar
+          command: |
+            sudo apt install tar
       - persist_to_workspace:
           root: .
           paths:
@@ -184,4 +190,6 @@ workflows:
       #     requires:
       #       - frontend-build
       - create_infrastructure
-      - configure_infrastructure
+      - configure_infrastructure:
+          requires:
+            - create_infrastructure
