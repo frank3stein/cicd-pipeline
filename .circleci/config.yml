@@ -26,6 +26,10 @@ jobs:
       #     key: backend-{{ checksum "package-lock.json" }}
       #     paths:
       #       - backend/node_modules
+      - persist_to_workspace:
+          root: .
+          paths:
+            - backend/node_modules
   backend-test:
     docker:
       - image: circleci/node:13.8.0
@@ -33,12 +37,14 @@ jobs:
       - checkout
       # - restore_cache:
       #     keys: backend-{{ checksum "/backend/package-lock.json" }}
+      - attach_workspace:
+          at: .
       - run:
           name: Run Backend tests with JUnit as reporter
           command: |
             mkdir -p reports/junit
             cd backend
-            npm ci
+            # npm ci
             npm t -- --ci --reporters=default --reporters=jest-junit
           environment:
             JEST_JUNIT_OUTPUT_DIR: ./reports/junit/
@@ -127,12 +133,23 @@ jobs:
             aws ec2 describe-instances \
             \
               --query 'Reservations[*].Instances[*].PublicIpAddress' \
-              --filters "Name=tag:Name,Values=backend-{CIRCLE_WORKFLOW_ID}" \
+              --filters "Name=tag:Name,Values=backend-${CIRCLE_WORKFLOW_ID}" \
               --output text >> inventory.txt
+      - persist_to_workspace:
+          root: .
+          paths:
+            - inventory.txt
+      - run:
+          name: list the folder structure
+          command: |
+            ls .
+            cat inventory.txt
   configure_infrastructure:
     docker:
       - image: python:3.7-alpine3.11
     steps:
+      - attach_workspace:
+          at: .
       - checkout
       - add_ssh_keys:
           fingerprints: ["af:49:bb:53:37:e7:0c:a4:1d:2b:c4:3f:5a:bc:5d:68"] # You can get this ID in the section where you registered the SSH Key
