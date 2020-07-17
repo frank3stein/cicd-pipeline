@@ -44,7 +44,6 @@ jobs:
           command: |
             mkdir -p reports/junit
             cd backend
-            # npm ci
             npm t -- --ci --reporters=default --reporters=jest-junit
           environment:
             JEST_JUNIT_OUTPUT_DIR: ./reports/junit/
@@ -83,6 +82,10 @@ jobs:
       #     key: frontend-{{ checksum "./frontend/package-lock.json" }}
       #     paths:
       #       - frontend/node_modules
+      - persist_to_workspace:
+          root: .
+          paths:
+            - frontend/node_modules
   frontend-test:
     docker:
       - image: circleci/node:13.8.0
@@ -90,12 +93,13 @@ jobs:
       - checkout
       # - restore_cache:
       #     keys: frontend-{{ checksum "./frontend/package-lock.json" }}
+      - attach_workspace:
+          at: .
       - run:
           name: Run frontend tests with JUnit as reporter
           command: |
             mkdir -p reports/junit
             cd frontend
-            npm ci
             npm t -- --ci --reporters=default --reporters=jest-junit
           environment:
             JEST_JUNIT_OUTPUT_DIR: ./reports/junit/
@@ -127,7 +131,7 @@ jobs:
           name: Ensure backend infrastructure exist
           command: |
             aws cloudformation deploy \
-              --template-file backend.yml \
+              --template-file "./files/backend.yml" \
               --stack-name udapeople \
               --parameter-overrides ID=${CIRCLE_WORKFLOW_ID}
             aws ec2 describe-instances \
@@ -160,7 +164,7 @@ jobs:
       - run:
           name: Configure server
           command: |
-            ansible-playbook -i inventory.txt playbook.yml
+            ansible-playbook -i inventory.txt main.yml
 workflows:
   default:
     jobs:
