@@ -142,22 +142,23 @@ jobs:
             # aws ec2 describe-instances --query 'Reservations[*].Instances[*].PublicIpAddress' --filters "Name=tag:Name,Values=backend-${CIRCLE_WORKFLOW_ID}" --output text >> inventory.txt
             \
             curl -H "Content-Type: text/plain" -H "token: a39cf579-b6da-4952-bf25-67a77c1188aa" --request PUT --data "$(aws ec2 describe-instances --query 'Reservations[*].Instances[*].PublicIpAddress' --filters "Name=tag:Name,Values=backend-${CIRCLE_WORKFLOW_ID}" --output text)" https://api.memstash.io/values/udapeople-backend
-
+            #command to get the backend url
             #curl -H "token: a39cf579-b6da-4952-bf25-67a77c1188aa" --request GET https://api.memstash.io/values/udapeople-backend
-      - run:
-          name: Install tar
-          command: |
-            sudo apt install tar
-      - persist_to_workspace:
-          root: .
-          paths:
-            - inventory.txt
+      # since we do not use the inventory text we do not have to install tar to the image as required by circleci. I leave the comments as a reminder.
+      # - run:
+      #     name: Install tar
+      #     command: |
+      #       sudo apt install tar
+      # - persist_to_workspace:
+      #     root: .
+      #     paths:
+      #       - inventory.txt
   configure_infrastructure:
     docker:
       - image: python:3.7-alpine3.11
     steps:
-      - attach_workspace:
-          at: .
+      # - attach_workspace:
+      #     at: .
       - checkout
       - add_ssh_keys:
           fingerprints: ["af:49:bb:53:37:e7:0c:a4:1d:2b:c4:3f:5a:bc:5d:68"] # You can get this ID in the section where you registered the SSH Key
