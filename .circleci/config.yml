@@ -130,9 +130,7 @@ jobs:
       - run:
           name: list the folder structure
           command: |
-            ls .
-            ls ./files
-            cat inventory.txt
+            ls -a
       - run:
           name: Ensure backend infrastructure exist
           command: |
