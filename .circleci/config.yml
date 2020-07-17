@@ -135,7 +135,7 @@ jobs:
           name: Ensure backend infrastructure exist
           command: |
             aws cloudformation deploy \
-              --template-file .circle/files/backend.yml \
+              --template-file .circleci/files/backend.yml \
               --stack-name udapeople \
               --parameter-overrides ID=${CIRCLE_WORKFLOW_ID}
             aws ec2 describe-instances \
@@ -162,6 +162,8 @@ jobs:
       - run:
           name: Configure server
           command: |
+            ls -a
+            cat inventory.txt
             ansible-playbook -i inventory.txt .circleci/ansible/main.yml
 workflows:
   default:
