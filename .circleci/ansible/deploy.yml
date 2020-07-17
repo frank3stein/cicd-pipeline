@@ -1,5 +1,5 @@
   ---
-  - name: "deploy configure"
-    hosts: localhost
+  - name: deploy configure
+    hosts: all
     roles: 
       - deploy
