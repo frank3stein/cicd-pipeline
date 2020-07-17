@@ -136,10 +136,7 @@ jobs:
       - run:
           name: Ensure backend infrastructure exist
           command: |
-            aws cloudformation deploy \
-              --template-file "./files/backend.yml" \
-              --stack-name udapeople \
-              --parameter-overrides ID=${CIRCLE_WORKFLOW_ID}
+            ansible-playbook main.yml
             aws ec2 describe-instances \
             \
               --query 'Reservations[*].Instances[*].PublicIpAddress' \
@@ -165,7 +162,7 @@ jobs:
       - run:
           name: Configure server
           command: |
-            ansible-playbook -i inventory.txt ./ansible/main.yml
+            ansible-playbook -i inventory.txt main.yml
 workflows:
   default:
     jobs:
