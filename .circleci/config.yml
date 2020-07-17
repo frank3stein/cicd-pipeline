@@ -167,6 +167,10 @@ jobs:
           command: |
             apk add --update ansible # install the dependencies needed for your playbook
       - run:
+          name: Get the server
+          command: |
+            curl -H "token: a39cf579-b6da-4952-bf25-67a77c1188aa" --request GET https://api.memstash.io/values/udapeople-backend >> inventory.txt
+      - run:
           name: Configure server
           command: |
             ls -a
