@@ -201,10 +201,8 @@ jobs:
             else
              return 1
             fi
-      - run:
-          name: Destroy environment
-          command: destroy_environment
-          when: on_fail
+      - destroy_environment
+        when: on_fail
 
 workflows:
   default:
