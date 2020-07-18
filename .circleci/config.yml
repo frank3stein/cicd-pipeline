@@ -172,6 +172,7 @@ jobs:
       - run:
           name: Get the server
           command: |
+            echo "[all]" > inventory.txt
             curl -H "token: a39cf579-b6da-4952-bf25-67a77c1188aa" --request GET https://api.memstash.io/values/udapeople-backend >> inventory.txt
       - run:
           name: Configure server
