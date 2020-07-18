@@ -182,7 +182,7 @@ jobs:
             ansible-playbook -i inventory.txt .circleci/ansible/main.yml
   smoke_test:
     docker:
-      - image: alpine:latest
+      - image: amazon/aws-cli
     steps:
       - run: apk add --update curl
       - run:
@@ -199,6 +199,28 @@ jobs:
           command: |
             aws cloudformation delete-stack --stack-name udapeople-${CICRLE_WORKFLOW_ID}
           when: on_fail
+  create_and_deploy_front_end:
+    docker:
+      - image: amazon/aws-cli
+    steps:
+      - checkout
+      - run: |
+          aws cloudformation deploy \
+            --template-file frontend.yml \
+            --stack-name "${CIRCLE_WORKFLOW_ID}" \
+            --parameter-overrides ID="${CIRCLE_WORKFLOW_ID}"
+      - run: aws s3 sync . s3://"${CIRCLE_WORKFLOW_ID}" --delete
+
+  promote_to_production:
+    docker:
+      - image: amazon/aws-cli
+    steps:
+      - checkout
+      - run: |
+          aws cloudformation deploy \
+            --template-file cloudfront.yml \
+            --stack-name cloudfront \
+            --parameter-overrides PipelineID="${CIRCLE_WORKFLOW_ID}"
 workflows:
   default:
     jobs:
@@ -224,3 +246,6 @@ workflows:
       - smoke_test:
           requires:
             - configure_infrastructure
+      # - create_and_deploy_front_end
+      # - promote_to_production:
+      #     requires: [create_and_deploy_front_end]
