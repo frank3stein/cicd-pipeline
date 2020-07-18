@@ -209,7 +209,7 @@ jobs:
             --template-file frontend.yml \
             --stack-name "${CIRCLE_WORKFLOW_ID}" \
             --parameter-overrides ID="${CIRCLE_WORKFLOW_ID}"
-      - run: aws s3 sync . s3://"${CIRCLE_WORKFLOW_ID}" --delete
+      - run: aws s3 sync ./frontend/dist/ s3://"${CIRCLE_WORKFLOW_ID}" --delete
 
   promote_to_production:
     docker:
@@ -246,6 +246,14 @@ workflows:
       - smoke_test:
           requires:
             - configure_infrastructure
-      # - create_and_deploy_front_end
-      # - promote_to_production:
-      #     requires: [create_and_deploy_front_end]
+      - create_and_deploy_front_end:
+          requires:
+            - smoke_test
+          filters:
+            branches:
+              only: master # Only deploy when the commit is on the Master branch
+      - promote_to_production:
+          requires: [create_and_deploy_front_end]
+          filters:
+            branches:
+              only: master # Only deploy when the commit is on the Master branch
