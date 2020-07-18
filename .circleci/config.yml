@@ -241,7 +241,9 @@ workflows:
       - frontend-test:
           requires:
             - frontend-build
-      - create_infrastructure
+      - create_infrastructure:
+          requires:
+            - backend-test
       - configure_infrastructure:
           requires:
             - create_infrastructure
@@ -251,6 +253,7 @@ workflows:
       - create_and_deploy_front_end:
           requires:
             - smoke_test
+            - frontend-test
           filters:
             branches:
               only: master # Only deploy when the commit is on the Master branch
