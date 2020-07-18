@@ -180,6 +180,20 @@ jobs:
             ls -a
             cat inventory.txt
             ansible-playbook -i inventory.txt .circleci/ansible/main.yml
+  smoke_test:
+    docker:
+      - image: alpine:latest
+    steps:
+      - run: apk add --update curl
+      - run:
+          name: smoke test.
+          command: |
+            if curl -s --head $(curl -H "token: a39cf579-b6da-4952-bf25-67a77c1188aa" --request GET https://api.memstash.io/values/udapeople-backend):3000
+            then
+             return 0
+            else
+             return 1
+            fi
 workflows:
   default:
     jobs:
@@ -202,3 +216,6 @@ workflows:
       - configure_infrastructure:
           requires:
             - create_infrastructure
+      - smoke_test:
+          requires:
+            - configure_infrastructure
