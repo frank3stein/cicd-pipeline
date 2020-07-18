@@ -1,5 +1,12 @@
 version: 2.1
 
+commands:
+  destroy_environment:
+    steps:
+      - run:
+          name: Destroy environment
+          command: |
+            aws cloudformation delete-stack --stack-name udapeople
 jobs:
   hello-world:
     docker:
@@ -194,6 +201,8 @@ jobs:
             else
              return 1
             fi
+      - destroy_environment:
+          when: on_fail
 workflows:
   default:
     jobs:
