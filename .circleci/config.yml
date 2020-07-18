@@ -206,7 +206,7 @@ jobs:
       - checkout
       - run: |
           aws cloudformation deploy \
-            --template-file frontend.yml \
+            --template-file .circleci/files/frontend.yml \
             --stack-name "${CIRCLE_WORKFLOW_ID}" \
             --parameter-overrides ID="${CIRCLE_WORKFLOW_ID}"
       - run: aws s3 sync ./frontend/dist/ s3://"${CIRCLE_WORKFLOW_ID}" --delete
@@ -218,7 +218,7 @@ jobs:
       - checkout
       - run: |
           aws cloudformation deploy \
-            --template-file cloudfront.yml \
+            --template-file .circleci/files/cloudfront.yml \
             --stack-name cloudfront \
             --parameter-overrides PipelineID="${CIRCLE_WORKFLOW_ID}"
 workflows:
@@ -256,4 +256,4 @@ workflows:
           requires: [create_and_deploy_front_end]
           filters:
             branches:
-              only: master # Only deploy when the commit is on the Master branch
+              only: master
