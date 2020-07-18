@@ -1,12 +1,5 @@
 version: 2.1
 
-commands:
-  destroy_environment:
-    steps:
-      - run:
-          name: Destroy environment
-          command: |
-            aws cloudformation delete-stack --stack-name udapeople
 jobs:
   hello-world:
     docker:
@@ -143,7 +136,7 @@ jobs:
           command: |
             aws cloudformation deploy \
               --template-file .circleci/files/backend.yml \
-              --stack-name udapeople \
+              --stack-name udapeople-${CIRCLE_WORKFLOW_ID} \
               --parameter-overrides ID=${CIRCLE_WORKFLOW_ID}
             \
             # aws ec2 describe-instances --query 'Reservations[*].Instances[*].PublicIpAddress' --filters "Name=tag:Name,Values=backend-${CIRCLE_WORKFLOW_ID}" --output text >> inventory.txt
@@ -201,9 +194,11 @@ jobs:
             else
              return 1
             fi
-      - destroy_environment
+      - run:
+          name: Destroy environment
+          command: |
+            aws cloudformation delete-stack --stack-name udapeople-${CICRLE_WORKFLOW_ID}
           when: on_fail
-
 workflows:
   default:
     jobs:
