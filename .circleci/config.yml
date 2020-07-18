@@ -205,6 +205,8 @@ jobs:
     steps:
       - checkout
       - run: |
+          ls -R
+      - run: |
           aws cloudformation deploy \
             --template-file .circleci/files/frontend.yml \
             --stack-name udapeople-${CIRCLE_WORKFLOW_ID} \
@@ -225,20 +227,20 @@ workflows:
   default:
     jobs:
       # - hello-world
-      # - frontend-npmaudit
-      # - backend-npmaudit
-      # - backend-build:
-      #     requires:
-      #       - backend-npmaudit
-      # - frontend-build:
-      #     requires:
-      #       - frontend-npmaudit
-      # - backend-test:
-      #     requires:
-      #       - backend-build
-      # - frontend-test:
-      #     requires:
-      #       - frontend-build
+      - frontend-npmaudit
+      - backend-npmaudit
+      - backend-build:
+          requires:
+            - backend-npmaudit
+      - frontend-build:
+          requires:
+            - frontend-npmaudit
+      - backend-test:
+          requires:
+            - backend-build
+      - frontend-test:
+          requires:
+            - frontend-build
       - create_infrastructure
       - configure_infrastructure:
           requires:
