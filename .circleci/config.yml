@@ -213,7 +213,7 @@ jobs:
             --template-file .circleci/files/frontend.yml \
             --stack-name udapeople-${CIRCLE_WORKFLOW_ID} \
             --parameter-overrides ID="${CIRCLE_WORKFLOW_ID}"
-      - run: aws s3 sync ./frontend/dist/ s3://"${CIRCLE_WORKFLOW_ID}" --delete
+      - run: aws s3 sync ./frontend/dist/ s3://"udapeople-${CIRCLE_WORKFLOW_ID}" --delete
   promote_to_production:
     docker:
       - image: amazon/aws-cli
