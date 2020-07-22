@@ -227,24 +227,24 @@ jobs:
 workflows:
   default:
     jobs:
-      # - hello-world
-      # - frontend-npmaudit
-      # - backend-npmaudit
-      # - backend-build:
-      #     requires:
-      #       - backend-npmaudit
-      # - frontend-build:
-      #     requires:
-      #       - frontend-npmaudit
-      # - backend-test:
-      #     requires:
-      #       - backend-build
-      # - frontend-test:
-      #     requires:
-      #       - frontend-build
-      - create_infrastructure
-        # requires:
-        #   - backend-test
+      - hello-world
+      - frontend-npmaudit
+      - backend-npmaudit
+      - backend-build:
+          requires:
+            - backend-npmaudit
+      - frontend-build:
+          requires:
+            - frontend-npmaudit
+      - backend-test:
+          requires:
+            - backend-build
+      - frontend-test:
+          requires:
+            - frontend-build
+      - create_infrastructure:
+          requires:
+            - backend-test
       - configure_infrastructure:
           requires:
             - create_infrastructure
@@ -254,7 +254,7 @@ workflows:
       - create_and_deploy_front_end:
           requires:
             - smoke_test
-            # - frontend-test
+            - frontend-test
           filters:
             branches:
               only: master # Only deploy when the commit is on the Master branch
