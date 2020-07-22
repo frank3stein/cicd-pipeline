@@ -1,6 +1,5 @@
 Description: >
   UdaPeople frontend stack.
-
 Parameters:
   ID:
     Description: Unique identifier.
@@ -14,7 +13,8 @@ Resources:
       AccessControl: PublicRead
       WebsiteConfiguration:
         IndexDocument: index.html
-        # ErrorDocument: 404.html
+        ErrorDocument: 404.html
+
   WebsiteBucketPolicy:
     Type: AWS::S3::BucketPolicy
     Properties:
@@ -26,33 +26,8 @@ Resources:
             Principal: "*"
             Action: s3:GetObject
             Resource: !Join ["", ["arn:aws:s3:::", !Ref "WebsiteBucket", /*]]
-  # WebisteBucketPolicy:
-  #   Type: AWS::S3::BucketPolicy
-  #   Properties:
-  #     Bucket:
-  #       Ref: "WebsiteBucket"
-  #     PolicyDocument:
-  #       Statement:
-  #         - Action:
-  #             - "s3:GetObject"
-  #           Effect: "Allow"
-  #           Resource:
-  #             Fn::Join:
-  #               - ""
-  #               - - "arn:aws:s3:::"
-  #                 - Ref: "WebsiteBucket"
-  #                 - "/*"
-  #           Principal: "*"
 
 Outputs:
   WebsiteURL:
-    Value: !GetAtt [WebsiteBucket, WebsiteURL]
+    Value: !GetAtt WebsiteBucket.WebsiteURL
     Description: URL for website hosted on S3
-  S3BucketSecureURL:
-    Value: !Join ["", ["https://", !GetAtt [WebsiteBucket, DomainName]]]
-    Description: Name of S3 bucket to hold website content
-  S3Bucket:
-    Value: !Ref WebsiteBucket
-    Description: The bucket that is created
-    Export:
-      Name: S3Bucket
