@@ -34,6 +34,8 @@ Outputs:
   Domain:
     Value: !GetAtt WebsiteBucket.DomainName
     Description: Domain Name
+    Export:
+      Name: Domain
   BucketArn:
     Value: !GetAtt WebsiteBucket.Arn
     Description: Bucket Arn
