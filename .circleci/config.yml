@@ -44,7 +44,7 @@ jobs:
           command: |
             mkdir -p reports/junit
             cd backend
-            npm t -- --ci --reporters=default --reporters=jest-junit
+            npm t -- --ci --reporters=default --reporters=jest-junit --silent
           environment:
             JEST_JUNIT_OUTPUT_DIR: ./reports/junit/
       - store_test_results:
@@ -101,7 +101,7 @@ jobs:
           command: |
             mkdir -p reports/junit
             cd frontend
-            npm t -- --ci --reporters=default --reporters=jest-junit
+            npm t -- --ci --reporters=default --reporters=jest-junit --silent
           environment:
             JEST_JUNIT_OUTPUT_DIR: ./reports/junit/
       - store_test_results:
