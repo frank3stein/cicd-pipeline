@@ -123,6 +123,11 @@ jobs:
           command: |
             cd frontend
             npm audit --audit-level=critical
+      - persist_to_workspace:
+          root: .
+          paths:
+            - frontend/dist
+            - frontend/node_modules
   create_infrastructure:
     docker:
       - image: amazon/aws-cli
@@ -212,13 +217,13 @@ jobs:
           touch .env
           backendURL=$(curl -H "token: a39cf579-b6da-4952-bf25-67a77c1188aa" --request GET https://api.memstash.io/values/udapeople-backend):3000
           echo "backendURL=${backendURL}" > .env
+          cat .env
           npm ci
           npm build
       - persist_to_workspace:
           root: .
           paths:
             - frontend/dist
-
   create_and_deploy_front_end:
     docker:
       - image: amazon/aws-cli
