@@ -3,3 +3,25 @@ https://github.com/frank3stein/cicd-pipeline
 
 Circle Ci Pipeline
 https://app.circleci.com/pipelines/github/frank3stein/cicd-pipeline
+
+Prometheus Server
+http://ec2-18-195-21-4.eu-central-1.compute.amazonaws.com:9090/
+
+Graph in the Server
+http://ec2-18-195-21-4.eu-central-1.compute.amazonaws.com:9090/graph?g0.range_input=1h&g0.expr=rate(node_cpu_seconds_total%7Bmode%3D%22system%22%7D%5B1m%5D)&g0.tab=0
+
+
+Graphana
+http://ec2-18-195-21-4.eu-central-1.compute.amazonaws.com:3000/
+With query
+http://ec2-18-195-21-4.eu-central-1.compute.amazonaws.com:3000/explore?orgId=1&left=%5B%22now-1h%22,%22now%22,%22Prometheus%22,%7B%22expr%22:%22histogram_quantile(0.95,%20sum(rate(prometheus_http_request_duration_seconds_bucket%5B5m%5D))%20by%20(le))%22%7D,%7B%22ui%22:%5Btrue,true,true,%22none%22%5D%7D%5D
+
+Backend ec2
+http://ec2-18-195-21-4.eu-central-1.compute.amazonaws.com/
+
+
+S3-Frontend 
+http://udapeople-d355be1e-b506-43ea-82d9-5e82e7117983.s3-website.eu-central-1.amazonaws.com/#/employees
+
+Cloudfront-Frontend
+d30w9aydyeyfwo.cloudfront.net

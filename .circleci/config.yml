@@ -198,8 +198,27 @@ jobs:
       - run:
           name: Destroy environment
           command: |
-            aws cloudformation delete-stack --stack-name udapeople-${CICRLE_WORKFLOW_ID}
+            aws cloudformation delete-stack --stack-name udapeople-backend-${CICRLE_WORKFLOW_ID}
           when: on_fail
+  configure_frontend:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run: |
+          cd frontend
+          touch .env
+          backendURL=$(curl -H "token: a39cf579-b6da-4952-bf25-67a77c1188aa" --request GET https://api.memstash.io/values/udapeople-backend):3000
+          echo "backendURL=${backendURL}" > .env
+          npm ci
+          npm build
+      - persist_to_workspace:
+          root: .
+          paths:
+            - frontend/dist
+
   create_and_deploy_front_end:
     docker:
       - image: amazon/aws-cli
@@ -251,9 +270,12 @@ workflows:
       - smoke_test:
           requires:
             - configure_infrastructure
-      - create_and_deploy_front_end:
+      - configure_frontend:
           requires:
             - smoke_test
+      - create_and_deploy_front_end:
+          requires:
+            - configure_frontend
             - frontend-test
           filters:
             branches:
