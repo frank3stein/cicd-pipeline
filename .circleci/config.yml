@@ -218,8 +218,8 @@ jobs:
       - run: |
           cd frontend
           touch .env
-          backendURL=$(curl -H "token: a39cf579-b6da-4952-bf25-67a77c1188aa" --request GET https://api.memstash.io/values/udapeople-backend):3000
-          echo "backendURL=${backendURL}" > .env
+          API_URL=$(curl -H "token: a39cf579-b6da-4952-bf25-67a77c1188aa" --request GET https://api.memstash.io/values/udapeople-backend):3000
+          echo "API_URL=${API_URL}" > .env
           cat .env
           npm ci
           npm run build
