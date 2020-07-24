@@ -66,7 +66,26 @@ jobs:
           command: |
             cd backend
             npm audit --audit-level=critical
-
+      - persist_to_workspace:
+          root: .
+          paths:
+            - backend
+  frontend-npmaudit:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Audit npm packages
+          command: |
+            cd frontend
+            npm audit --audit-level=critical
+      - persist_to_workspace:
+          root: .
+          paths:
+            - frontend
   frontend-build:
     docker:
       - image: circleci/node:13.8.0
@@ -85,8 +104,7 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - frontend/node_modules
-            - frontend/dist
+            - frontend
   frontend-test:
     docker:
       - image: circleci/node:13.8.0
@@ -113,21 +131,6 @@ jobs:
           command: |
             echo "frontend tests have failed, placeholder for later"
           when: on_fail
-  frontend-npmaudit:
-    docker:
-      - image: circleci/node:13.8.0
-    steps:
-      - checkout
-      - run:
-          name: Audit npm packages
-          command: |
-            cd frontend
-            npm audit --audit-level=critical
-      - persist_to_workspace:
-          root: .
-          paths:
-            - frontend/dist
-            - frontend/node_modules
   create_infrastructure:
     docker:
       - image: amazon/aws-cli
