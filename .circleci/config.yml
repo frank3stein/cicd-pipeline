@@ -222,7 +222,7 @@ jobs:
           echo "backendURL=${backendURL}" > .env
           cat .env
           npm ci
-          npm build
+          npm run build
       - persist_to_workspace:
           root: .
           paths:
