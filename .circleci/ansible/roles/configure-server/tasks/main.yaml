@@ -34,24 +34,19 @@
     path: ~/web
     state: directory
 
-# - name: Copy index test page
-#   template:
-#     src: "files/index.js"
-#     dest: "~/web/index.js"
-
-# - name: Executing node
-#   shell: |
-#     pm2 start ~/web/index.js -f
-- name: Extract foo.tgz into /var/lib/foo
-  unarchive:
-    src: "files/backend.tar.gz"
-    dest: "~/web/"
-
-# - name: Copy index test page
-#   template:
-#     src: "files/index.js"
-#     dest: "~/web/index.js"
+- name: Copy index test page
+  template:
+    src: "files/index.js"
+    dest: "~/web/index.js"
 
 - name: Executing node
   shell: |
-    pm2 start ~/web/backend/dist/main.js -f
+    pm2 start ~/web/index.js -f
+
+# - name: Extract foo.tgz into /var/lib/foo
+#   unarchive:
+#     src: "files/backend.tar.gz"
+#     dest: "~/web/"
+# - name: Executing node
+#   shell: |
+#     pm2 start ~/web/backend/dist/main.js -f
