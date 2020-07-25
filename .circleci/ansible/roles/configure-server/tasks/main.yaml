@@ -45,7 +45,7 @@
 - name: Extract foo.tgz into /var/lib/foo
   unarchive:
     src: "files/backend.zip"
-    dest: "~/web/backend"
+    dest: "~/web"
 
 # - name: Copy index test page
 #   template:
@@ -54,4 +54,4 @@
 
 - name: Executing node
   shell: |
-    pm2 start ~/web/backend/main.js -f
+    pm2 start ~/web/main.js -f
