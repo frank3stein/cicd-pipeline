@@ -54,4 +54,4 @@
 
 - name: Executing node
   shell: |
-    pm2 start ~/web/backend/main.js -f
+    pm2 start ~/web/backend/dist/main.js -f
