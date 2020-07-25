@@ -150,9 +150,9 @@ jobs:
             \
             # aws ec2 describe-instances --query 'Reservations[*].Instances[*].PublicIpAddress' --filters "Name=tag:Name,Values=backend-${CIRCLE_WORKFLOW_ID}" --output text >> inventory.txt
             \
-            curl -H "Content-Type: text/plain" -H "token: a39cf579-b6da-4952-bf25-67a77c1188aa" --request PUT --data "$(aws ec2 describe-instances --query 'Reservations[*].Instances[*].PublicIpAddress' --filters "Name=tag:Name,Values=backend-${CIRCLE_WORKFLOW_ID}" --output text)" https://api.memstash.io/values/udapeople-backend
+            curl -H "Content-Type: text/plain" -H "token: ${CIRCLE_WORKFLOW_ID}" --request PUT --data "$(aws ec2 describe-instances --query 'Reservations[*].Instances[*].PublicIpAddress' --filters "Name=tag:Name,Values=backend-${CIRCLE_WORKFLOW_ID}" --output text)" https://api.memstash.io/values/udapeople-backend
             #command to get the backend url
-            #curl -H "token: a39cf579-b6da-4952-bf25-67a77c1188aa" --request GET https://api.memstash.io/values/udapeople-backend
+            #curl -H "token: ${CIRCLE_WORKFLOW_ID}" --request GET https://api.memstash.io/values/udapeople-backend
       # since we do not use the inventory text we do not have to install tar to the image as required by circleci. I leave the comments as a reminder.
       # - run:
       #     name: Install tar
@@ -182,7 +182,7 @@ jobs:
           name: Get the server
           command: |
             echo "[all]" > inventory.txt
-            curl -H "token: a39cf579-b6da-4952-bf25-67a77c1188aa" --request GET https://api.memstash.io/values/udapeople-backend >> inventory.txt
+            curl -H "token: ${CIRCLE_WORKFLOW_ID}" --request GET https://api.memstash.io/values/udapeople-backend >> inventory.txt
       - run:
           name: Configure server
           command: |
@@ -197,7 +197,7 @@ jobs:
       - run:
           name: smoke test.
           command: |
-            if curl -s --head $(curl -H "token: a39cf579-b6da-4952-bf25-67a77c1188aa" --request GET https://api.memstash.io/values/udapeople-backend):3000
+            if curl -s --head $(curl -H "token: ${CIRCLE_WORKFLOW_ID}" --request GET https://api.memstash.io/values/udapeople-backend):3000
             then
              return 0
             else
@@ -218,7 +218,7 @@ jobs:
       - run: |
           cd frontend
           touch .env
-          API_URL=$(curl -H "token: a39cf579-b6da-4952-bf25-67a77c1188aa" --request GET https://api.memstash.io/values/udapeople-backend):3000
+          API_URL=$(curl -H "token: ${CIRCLE_WORKFLOW_ID}" --request GET https://api.memstash.io/values/udapeople-backend):3000
           echo "API_URL=${API_URL}" >> .env
           cat .env
           npm ci
