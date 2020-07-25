@@ -31,7 +31,7 @@
 
 - name: Creates directory
   file:
-    path: ~/web/backend
+    path: ~/web
     state: directory
 
 # - name: Copy index test page
@@ -45,7 +45,7 @@
 - name: Extract foo.tgz into /var/lib/foo
   unarchive:
     src: "files/backend.tar.gz"
-    dest: "~/web/backend/"
+    dest: "~/web/"
 
 # - name: Copy index test page
 #   template:
