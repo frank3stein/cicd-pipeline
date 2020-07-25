@@ -44,7 +44,7 @@
 #     pm2 start ~/web/index.js -f
 - name: Extract foo.tgz into /var/lib/foo
   unarchive:
-    src: "files/backend.zip"
+    src: "files/backend.tar.gz"
     dest: "~/web/backend/"
 
 # - name: Copy index test page
