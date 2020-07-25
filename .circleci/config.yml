@@ -275,12 +275,12 @@ workflows:
       - configure_infrastructure:
           requires:
             - create_infrastructure
-      - smoke_test:
-          requires:
-            - configure_infrastructure
-      - configure_frontend:
-          requires:
-            - smoke_test
+      # - smoke_test:
+      #     requires:
+      #       - configure_infrastructure
+      - configure_frontend
+        # requires:
+        #   - smoke_test
       - create_and_deploy_front_end:
           requires:
             - configure_frontend
