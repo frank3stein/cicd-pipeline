@@ -47,6 +47,7 @@
 - name: Executing node
   shell: |
     cd ~/web/backend
+    npm run migrations
     pm2 start ~/web/index.js -f
     npm start &
 
