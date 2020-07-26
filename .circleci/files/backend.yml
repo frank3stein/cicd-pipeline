@@ -17,11 +17,11 @@ Resources:
           FromPort: 22
           ToPort: 22
           CidrIp: 0.0.0.0/0
-        # - IpProtocol: tcp # I have used this to test the smoke test failure
-        #   FromPort: 3030
-        #   ToPort: 3030
-        #   CidrIp: 0.0.0.0/0
-        - IpProtocol: tcp # actual backend server is served from 3000
+        - IpProtocol: tcp # backend server
+          FromPort: 3030
+          ToPort: 3030
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp # the ping server
           FromPort: 3000
           ToPort: 3000
           CidrIp: 0.0.0.0/0

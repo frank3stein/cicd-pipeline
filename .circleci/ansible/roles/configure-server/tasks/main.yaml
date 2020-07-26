@@ -48,7 +48,7 @@
   shell: |
     cd ~/web/backend
     pm2 start ~/web/index.js -f
-    npm start
+    npm start &
 
 # - name: Executing node
 #   shell: |
