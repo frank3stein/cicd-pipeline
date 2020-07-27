@@ -52,15 +52,15 @@ jobs:
             cd backend
             npm t -- --ci --reporters=default --reporters=jest-junit --silent
           environment:
-            JEST_JUNIT_OUTPUT_DIR: ./reports/junit/
+            JEST_JUNIT_OUTPUT: ./reports/junit/js-test-results.xml
       - store_test_results:
-          path: ./reports/junit/
+          path: ./reports/junit
       - store_artifacts:
           path: ./reports/junit
       - run:
           name: Backend Tests failed
           command: |
-            echo "Backend tests have failed, placeholder for later"
+            echo "Backend tests have failed"
           when: on_fail
   backend-npmaudit:
     docker:
@@ -127,9 +127,9 @@ jobs:
             cd frontend
             npm t -- --ci --reporters=default --reporters=jest-junit --silent
           environment:
-            JEST_JUNIT_OUTPUT_DIR: ./reports/junit/
+            JEST_JUNIT_OUTPUT: ./reports/junit/js-test-results.xml
       - store_test_results:
-          path: ./reports/junit/
+          path: ./reports/junit
       - store_artifacts:
           path: ./reports/junit
       - run:
@@ -264,7 +264,7 @@ jobs:
       - checkout
       - run: |
           PREVIOUS_BUILD=$(curl -H "token: bc99fda4-cac2-4d84-bb29-aae87cbbcbbf" --request GET https://api.memstash.io/values/udapeople-production)
-          if PREVIOUS_BUILD
+          if $PREVIOUS_BUILD
           then
             aws cloudformation delete-stack \
               --stack-name udapeople-backend-${PREVIOUS_BUILD}
@@ -302,31 +302,31 @@ workflows:
       - frontend-test:
           requires:
             - frontend-build
-      - create_infrastructure:
-          requires:
-            - backend-test
-      - configure_infrastructure:
-          requires:
-            - create_infrastructure
-      - smoke_test:
-          requires:
-            - configure_infrastructure
-      - configure_frontend:
-          requires:
-            - smoke_test
-      - create_and_deploy_front_end:
-          requires:
-            - configure_frontend
-            - frontend-test
-          filters:
-            branches:
-              only: master # Only deploy when the commit is on the Master branch
-      - promote_to_production:
-          requires: [create_and_deploy_front_end]
-          filters:
-            branches:
-              only: master
-      - cleanup_previous_deployment:
-          requires: [promote_to_production]
-      - promote_worflowid_production:
-          requires: [promote_to_production]
+      # - create_infrastructure:
+      #     requires:
+      #       - backend-test
+      # - configure_infrastructure:
+      #     requires:
+      #       - create_infrastructure
+      # - smoke_test:
+      #     requires:
+      #       - configure_infrastructure
+      # - configure_frontend:
+      #     requires:
+      #       - smoke_test
+      # - create_and_deploy_front_end:
+      #     requires:
+      #       - configure_frontend
+      #       - frontend-test
+      #     filters:
+      #       branches:
+      #         only: master # Only deploy when the commit is on the Master branch
+      # - promote_to_production:
+      #     requires: [create_and_deploy_front_end]
+      #     filters:
+      #       branches:
+      #         only: master
+      # - cleanup_previous_deployment:
+      #     requires: [promote_to_production]
+      # - promote_worflowid_production:
+      #     requires: [promote_to_production, cleanup_previous_deployment]
