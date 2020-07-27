@@ -304,31 +304,31 @@ workflows:
       - frontend-test:
           requires:
             - frontend-build
-      # - create_infrastructure:
-      #     requires:
-      #       - backend-test
-      # - configure_infrastructure:
-      #     requires:
-      #       - create_infrastructure
-      # - smoke_test:
-      #     requires:
-      #       - configure_infrastructure
-      # - configure_frontend:
-      #     requires:
-      #       - smoke_test
-      # - create_and_deploy_front_end:
-      #     requires:
-      #       - configure_frontend
-      #       - frontend-test
-      #     filters:
-      #       branches:
-      #         only: master # Only deploy when the commit is on the Master branch
-      # - promote_to_production:
-      #     requires: [create_and_deploy_front_end]
-      #     filters:
-      #       branches:
-      #         only: master
-      # - cleanup_previous_deployment:
-      #     requires: [promote_to_production]
-      # - promote_worflowid_production:
-      #     requires: [promote_to_production, cleanup_previous_deployment]
+      - create_infrastructure:
+          requires:
+            - backend-test
+      - configure_infrastructure:
+          requires:
+            - create_infrastructure
+      - smoke_test:
+          requires:
+            - configure_infrastructure
+      - configure_frontend:
+          requires:
+            - smoke_test
+      - create_and_deploy_front_end:
+          requires:
+            - configure_frontend
+            - frontend-test
+          filters:
+            branches:
+              only: master # Only deploy when the commit is on the Master branch
+      - promote_to_production:
+          requires: [create_and_deploy_front_end]
+          filters:
+            branches:
+              only: master
+      - cleanup_previous_deployment:
+          requires: [promote_to_production]
+      - promote_worflowid_production:
+          requires: [promote_to_production, cleanup_previous_deployment]
