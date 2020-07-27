@@ -257,7 +257,7 @@ jobs:
       - run: |
           aws cloudformation deploy \
             --template-file .circleci/files/cloudfront.yml \
-            --stack-name udapeople-prod-${CIRCLE_WORKFLOW_ID} \
+            --stack-name udapeople-frontend-${CIRCLE_WORKFLOW_ID} \
             --parameter-overrides WorkflowID="${CIRCLE_WORKFLOW_ID}"
   cleanup_previous_deployment:
     docker:
@@ -274,8 +274,8 @@ jobs:
             aws s3 rb s3://udapeople-${PREVIOUS_BUILD} --force 
             aws cloudformation delete-stack \
               --stack-name udapeople-frontend-${PREVIOUS_BUILD}
-            aws cloudformation delete-stack \
-              --stack-name udapeople-prod-${PREVIOUS_BUILD}
+            # aws cloudformation delete-stack \
+            #   --stack-name udapeople-prod-${PREVIOUS_BUILD}
           fi
   promote_worflowid_production:
     docker:
