@@ -17,7 +17,7 @@ Resources:
     Properties:
       DistributionConfig:
         Origins:
-          - DomainName: !ImportValue Domain
+          - DomainName: !ImportValue udapeople-s3-domain
             Id: webpage
             S3OriginConfig:
               OriginAccessIdentity: !Sub "origin-access-identity/cloudfront/${CloudFrontOriginAccessIdentity}"
