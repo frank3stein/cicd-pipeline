@@ -51,7 +51,7 @@ jobs:
             mkdir -p reports/junit
             cd backend
             sudo npm install -g jest
-            jest -- --ci --runInBand --reporters=jest-junit
+            jest --ci --runInBand --reporters=jest-junit
           environment:
             JEST_JUNIT_OUTPUT: ./reports/junit/js-test-results.xml
           # environment:
@@ -129,7 +129,7 @@ jobs:
             mkdir -p reports/junit
             cd frontend
             sudo npm install -g jest
-            jest -- --ci --runInBand --reporters=jest-junit
+            jest --ci --runInBand --reporters=jest-junit
           environment:
             JEST_JUNIT_OUTPUT: ./reports/junit/js-test-results.xml
           # environment:
