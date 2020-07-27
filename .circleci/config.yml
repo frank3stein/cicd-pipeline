@@ -50,7 +50,8 @@ jobs:
           command: |
             mkdir -p reports/junit
             cd backend
-            npm t -- --ci --runInBand --reporters=jest-junit
+            sudo npm install -g jest
+            jest -- --ci --runInBand --reporters=jest-junit
           environment:
             JEST_JUNIT_OUTPUT: ./reports/junit/js-test-results.xml
           # environment:
@@ -127,12 +128,15 @@ jobs:
           command: |
             mkdir -p reports/junit
             cd frontend
-            npm t -- --ci --reporters=default --reporters=jest-junit --silent
+            sudo npm install -g jest
+            jest -- --ci --runInBand --reporters=jest-junit
           environment:
             JEST_JUNIT_OUTPUT: ./reports/junit/js-test-results.xml
-      - store_test_results:
-          path: ./reports/junit
+          # environment:
+          #   JEST_JUNIT_OUTPUT: ./frontend/coverage/cloverage.xml
       - store_artifacts:
+          path: ./reports/junit
+      - store_test_results:
           path: ./reports/junit
       - run:
           name: frontend Tests failed
