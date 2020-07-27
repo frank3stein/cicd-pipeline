@@ -274,7 +274,6 @@ jobs:
               --stack-name udapeople-frontend-${PREVIOUS_BUILD}
             aws cloudformation delete-stack \
               --stack-name udapeople-prod-${PREVIOUS_BUILD}
-          else
           fi
   promote_worflowid_production:
     docker:
