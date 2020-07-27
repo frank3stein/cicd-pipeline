@@ -7,9 +7,15 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Say Hello
+          name: We get a new workflow ID
           command: |
-            echo "Hello World ${CIRCLE_WORKFLOW_ID}"
+            PREVIOUS_WORKFLOW_ID=$(curl -H "token: bc99fda4-cac2-4d84-bb29-aae87cbbcbbf" --request GET https://api.memstash.io/values/udapeople-production)
+            #current build
+            # not needed  as workflow id is accessible. Left it for easy copy paste, TODO: Remove in the end
+            # curl -H "Content-Type: text/plain" -H "token: bc99fda4-cac2-4d84-bb29-aae87cbbcbbf" --request PUT --data "${CIRCLE_WORKFLOW_ID}" https://api.memstash.io/values/udapeople-candidate
+            echo "commit sha1 ${CIRCLE_SHA1}"
+            echo "Candidate id: ${CIRCLE_WORKFLOW_ID}"
+            echo "Production id: ${PREVIOUS_WORKFLOW_ID}"
   backend-build:
     docker:
       - image: circleci/node:13.8.0
@@ -148,7 +154,7 @@ jobs:
               --stack-name udapeople-backend-${CIRCLE_WORKFLOW_ID} \
               --parameter-overrides ID=${CIRCLE_WORKFLOW_ID}
             \
-            # aws ec2 describe-instances --query 'Reservations[*].Instances[*].PublicIpAddress' --filters "Name=tag:Name,Values=backend-${CIRCLE_WORKFLOW_ID}" --output text >> inventory.txt
+            # aws ec2 describe-instances --query 'Reservations[*].Instances[*].PublicIpAddress' --filters "Name=tag:Name,Values=backend-2bd05d16-e553-43a3-904f-b04da5fd3006" --output text >> inventory.txt
             \
             curl -H "Content-Type: text/plain" -H "token: ${CIRCLE_WORKFLOW_ID}" --request PUT --data "$(aws ec2 describe-instances --query 'Reservations[*].Instances[*].PublicIpAddress' --filters "Name=tag:Name,Values=backend-${CIRCLE_WORKFLOW_ID}" --output text)" https://api.memstash.io/values/udapeople-backend
             #command to get the backend url
@@ -251,45 +257,71 @@ jobs:
             --template-file .circleci/files/cloudfront.yml \
             --stack-name udapeople-prod-${CIRCLE_WORKFLOW_ID} \
             --parameter-overrides WorkflowID="${CIRCLE_WORKFLOW_ID}"
+  cleanup_previous_deployment:
+    docker:
+      - image: amazon/aws-cli
+    steps:
+      - checkout
+      - run: |
+          PREVIOUS_BUILD=$(curl -H "token: bc99fda4-cac2-4d84-bb29-aae87cbbcbbf" --request GET https://api.memstash.io/values/udapeople-production)
+          aws cloudformation delete-stack \
+            --stack-name udapeople-backend-${PREVIOUS_BUILD}
+          # delete all inside the bucket and remove it
+          aws s3 rb s3://udapeople-${PREVIOUS_BUILD} --force 
+          aws cloudformation delete-stack \
+            --stack-name udapeople-frontend-${PREVIOUS_BUILD}
+  promote_worflowid_production:
+    docker:
+      - image: amazon/aws-cli
+    steps:
+      - checkout
+      - run:
+          name: New workflow id for production
+          command: |
+            curl -H "Content-Type: text/plain" -H "token: bc99fda4-cac2-4d84-bb29-aae87cbbcbbf" --request PUT --data "${CIRCLE_WORKFLOW_ID}" https://api.memstash.io/values/udapeople-production
 workflows:
   default:
     jobs:
       - hello-world
-      - frontend-npmaudit
-      - backend-npmaudit
-      - backend-build:
-          requires:
-            - backend-npmaudit
-      - frontend-build:
-          requires:
-            - frontend-npmaudit
-      - backend-test:
-          requires:
-            - backend-build
-      - frontend-test:
-          requires:
-            - frontend-build
-      - create_infrastructure:
-          requires:
-            - backend-test
-      - configure_infrastructure:
-          requires:
-            - create_infrastructure
-      - smoke_test:
-          requires:
-            - configure_infrastructure
-      - configure_frontend:
-          requires:
-            - smoke_test
-      - create_and_deploy_front_end:
-          requires:
-            - configure_frontend
-            - frontend-test
-          filters:
-            branches:
-              only: master # Only deploy when the commit is on the Master branch
-      - promote_to_production:
-          requires: [create_and_deploy_front_end]
-          filters:
-            branches:
-              only: master
+      # - frontend-npmaudit
+      # - backend-npmaudit
+      # - backend-build:
+      #     requires:
+      #       - backend-npmaudit
+      # - frontend-build:
+      #     requires:
+      #       - frontend-npmaudit
+      # - backend-test:
+      #     requires:
+      #       - backend-build
+      # - frontend-test:
+      #     requires:
+      #       - frontend-build
+      # - create_infrastructure:
+      #     requires:
+      #       - backend-test
+      # - configure_infrastructure:
+      #     requires:
+      #       - create_infrastructure
+      # - smoke_test:
+      #     requires:
+      #       - configure_infrastructure
+      # - configure_frontend:
+      #     requires:
+      #       - smoke_test
+      # - create_and_deploy_front_end:
+      #     requires:
+      #       - configure_frontend
+      #       - frontend-test
+      #     filters:
+      #       branches:
+      #         only: master # Only deploy when the commit is on the Master branch
+      # - promote_to_production:
+      #     requires: [create_and_deploy_front_end]
+      #     filters:
+      #       branches:
+      #         only: master
+      # - cleanup_previous_deployment:
+      #     requires: [promote_to_production]
+      # - promote_worflowid_production:
+      #     requires: [promote_to_production]
