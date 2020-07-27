@@ -50,14 +50,10 @@ jobs:
           command: |
             mkdir -p reports/junit
             cd backend
-            sudo npm install -g jest
-            jest --ci --runInBand --reporters=jest-junit
+            npm t -- --ci --runInBand --reporters=jest-junit
           environment:
-            JEST_JUNIT_OUTPUT: ../reports/junit/frontend-tests-results.xml
-          # environment:
-          #   JEST_JUNIT_OUTPUT: ./reports/junit/js-test-results.xml
-          # environment:
-          #   JEST_JUNIT_OUTPUT: ./frontend/coverage/cloverage.xml
+            JEST_JUNIT_OUTPUT_DIR: /home/circleci/project/reports/junit/
+            JEST_JUNIT_OUTPUT_NAME: junit.xml
       - store_artifacts:
           path: ./reports/junit
       - store_test_results:
@@ -134,8 +130,6 @@ jobs:
           environment:
             JEST_JUNIT_OUTPUT_DIR: /home/circleci/project/reports/junit/
             JEST_JUNIT_OUTPUT_NAME: junit.xml
-          # environment:
-          #   JEST_JUNIT_OUTPUT: ./frontend/coverage/cloverage.xml
       - store_artifacts:
           path: ./reports/junit
       - store_test_results:
