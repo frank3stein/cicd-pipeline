@@ -257,7 +257,7 @@ jobs:
       - run: |
           aws cloudformation deploy \
             --template-file .circleci/files/cloudfront.yml \
-            --stack-name udapeople-frontend-${CIRCLE_WORKFLOW_ID} \
+            --stack-name udapeople-prod-${CIRCLE_WORKFLOW_ID} \
             --parameter-overrides WorkflowID="${CIRCLE_WORKFLOW_ID}"
   cleanup_previous_deployment:
     docker:
