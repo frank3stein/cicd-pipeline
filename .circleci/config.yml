@@ -226,7 +226,7 @@ jobs:
       - run: |
           cd frontend
           touch .env
-          API_URL=$(curl -H "token: ${CIRCLE_WORKFLOW_ID}" --request GET https://api.memstash.io/values/udapeople-backend):3030
+          API_URL=http://$(curl -H "token: ${CIRCLE_WORKFLOW_ID}" --request GET https://api.memstash.io/values/udapeople-backend):3030
           echo "API_URL=${API_URL}" >> .env
           cat .env
           npm ci
@@ -257,7 +257,7 @@ jobs:
       - run: |
           aws cloudformation deploy \
             --template-file .circleci/files/cloudfront.yml \
-            --stack-name udapeople-prod-${CIRCLE_WORKFLOW_ID} \
+            --stack-name udapeople-prod \
             --parameter-overrides WorkflowID="${CIRCLE_WORKFLOW_ID}"
   cleanup_previous_deployment:
     docker:
@@ -266,17 +266,15 @@ jobs:
       - checkout
       - run: |
           PREVIOUS_BUILD=$(curl -H "token: bc99fda4-cac2-4d84-bb29-aae87cbbcbbf" --request GET https://api.memstash.io/values/udapeople-production)
-          if $PREVIOUS_BUILD
-          then
-            aws cloudformation delete-stack \
-              --stack-name udapeople-backend-${PREVIOUS_BUILD}
-            # delete all inside the bucket and remove it
-            aws s3 rb s3://udapeople-${PREVIOUS_BUILD} --force 
-            aws cloudformation delete-stack \
-              --stack-name udapeople-frontend-${PREVIOUS_BUILD}
-            # aws cloudformation delete-stack \
-            #   --stack-name udapeople-prod-${PREVIOUS_BUILD}
-          fi
+          aws cloudformation delete-stack \
+            --stack-name udapeople-backend-${PREVIOUS_BUILD}
+          # delete all inside the bucket and remove it
+          aws s3 rb s3://udapeople-${PREVIOUS_BUILD} --force 
+          aws cloudformation delete-stack \
+            --stack-name udapeople-frontend-${PREVIOUS_BUILD}
+          # aws cloudformation delete-stack \
+          #   --stack-name udapeople-prod-${PREVIOUS_BUILD}
+
   promote_worflowid_production:
     docker:
       - image: amazon/aws-cli
