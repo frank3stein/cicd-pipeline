@@ -5,26 +5,26 @@ Circle Ci Pipeline
 https://app.circleci.com/pipelines/github/frank3stein/cicd-pipeline
 
 Prometheus Server
-http://ec2-18-195-21-4.eu-central-1.compute.amazonaws.com:9090/
+ec2-35-158-132-125.eu-central-1.compute.amazonaws.com:9090/
 
 Prometheus Alerts
-http://ec2-18-195-21-4.eu-central-1.compute.amazonaws.com:3000/explore?orgId=1&left=%5B%22now-1h%22,%22now%22,%22Prometheus%22,%7B%22expr%22:%22histogram_quantile(0.95,%20sum(rate(prometheus_http_request_duration_seconds_bucket%5B5m%5D))%20by%20(le))%22%7D,%7B%22ui%22:%5Btrue,true,true,%22none%22%5D%7D%5D
+ec2-35-158-132-125.eu-central-1.compute.amazonaws.com:3000/explore?orgId=1&left=%5B%22now-1h%22,%22now%22,%22Prometheus%22,%7B%22expr%22:%22histogram_quantile(0.95,%20sum(rate(prometheus_http_request_duration_seconds_bucket%5B5m%5D))%20by%20(le))%22%7D,%7B%22ui%22:%5Btrue,true,true,%22none%22%5D%7D%5D
 
 Graph in the Server
-http://ec2-18-195-21-4.eu-central-1.compute.amazonaws.com:9090/graph?g0.range_input=1h&g0.expr=rate(node_cpu_seconds_total%7Bmode%3D%22system%22%7D%5B1m%5D)&g0.tab=0
+ec2-35-158-132-125.eu-central-1.compute.amazonaws.com:9090/graph?g0.range_input=1h&g0.expr=rate(node_cpu_seconds_total%7Bmode%3D%22system%22%7D%5B1m%5D)&g0.tab=0
 
 
 Graphana
-http://ec2-18-195-21-4.eu-central-1.compute.amazonaws.com:3000/
+ec2-35-158-132-125.eu-central-1.compute.amazonaws.com:3000/
 
 With query
-http://ec2-18-195-21-4.eu-central-1.compute.amazonaws.com:3000/explore?orgId=1&left=%5B%22now-1h%22,%22now%22,%22Prometheus%22,%7B%22expr%22:%22histogram_quantile(0.95,%20sum(rate(prometheus_http_request_duration_seconds_bucket%5B5m%5D))%20by%20(le))%22%7D,%7B%22ui%22:%5Btrue,true,true,%22none%22%5D%7D%5D
+ec2-35-158-132-125.eu-central-1.compute.amazonaws.com:3000/explore?orgId=1&left=%5B%22now-1h%22,%22now%22,%22Prometheus%22,%7B%22expr%22:%22histogram_quantile(0.95,%20sum(rate(prometheus_http_request_duration_seconds_bucket%5B5m%5D))%20by%20(le))%22%7D,%7B%22ui%22:%5Btrue,true,true,%22none%22%5D%7D%5D
 
 Backend ec2
-ec2-35-157-191-156.eu-central-1.compute.amazonaws.com:3000
+http://18.197.155.90:3030/api/employees
 
 S3-Frontend 
-http://udapeople-735cd807-fb33-48e6-ac53-12d13f5cfb40.s3-website.eu-central-1.amazonaws.com/#/employees
+http://udapeople-283054fe-4722-4b9d-9e80-3c674787bbfa.s3-website.eu-central-1.amazonaws.com
 
 Cloudfront-Frontend
-d1j43l7n21s0wf.cloudfront.net
+http://d28lsndtpzpol.cloudfront.net/
